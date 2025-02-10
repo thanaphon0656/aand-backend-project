@@ -1,1 +1,1 @@
-export const TYPE = ["image"]
+export const TYPE = ["image", "pdf"]
