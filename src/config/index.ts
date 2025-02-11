@@ -3,7 +3,6 @@ config({ path: `.env.${process.env.NODE_ENV || "development"}.local` });
 
 export const CREDENTIALS = process.env.CREDENTIALS === "true";
 export const ORIGIN = process.env.CREDENTIALS === "true";
-// export const ORIGIN = process.env.ORIGIN != undefined ? process.env.ORIGIN : '*';
 export const {
   NODE_ENV,
   PORT,
