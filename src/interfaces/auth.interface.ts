@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Player } from "@/interfaces/player.interface";
+import { Admin } from "@/interfaces/admin.interface";
 
 export interface DataStoredInToken {
   _id: string;
@@ -10,6 +10,6 @@ export interface TokenData {
   expires_in: number;
 }
 
-export interface RequestWithPlayer extends Request {
-  player: Player;
+export interface RequestWithAdmin extends Request {
+  admin: Admin;
 }

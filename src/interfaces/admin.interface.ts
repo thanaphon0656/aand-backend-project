@@ -4,4 +4,5 @@ export interface Admin {
   email: string;
   password: string;
   role: string;
+  created_at: Date;
 }
