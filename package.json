@@ -1,29 +1,28 @@
 {
-  "name": "outlander-api",
+  "name": "aand-api",
   "version": "0.0.0",
   "description": "TypeScript + Mongoose + MongoDB + Express API Server",
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "npm run build && cross-env NODE_ENV=production node dist/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon",
-    "build": "swc src -d dist --source-maps --copy-files",
-    "build:tsc": "tsc && tsc-alias",
+    "start": "npm run build && cross-env NODE_ENV=production pm2 start dist/server.js --name aand-api",
+    "dev": "cross-env NODE_ENV=development pm2 start ts-node --name aand-api -- server.ts",
+    "build": "tsc",
     "test": "jest --forceExit",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "deploy:prod": "npm run build && pm2 start ecosystem.config.js --only aand-api-prod",
+    "deploy:dev": "npm run build && pm2 start ecosystem.config.js --only aand-api-dev"
   },
   "dependencies": {
-    "@bull-monitor/express": "^5.0.1",
     "@socket.io/redis-adapter": "^8.1.0",
     "aws-sdk": "^2.1205.0",
     "bad-words": "^3.0.4",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
-    "bull": "^4.9.0",
     "chalk": "^5.0.1",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.1",
+    "class-validator": "^0.12.2",
     "commander": "^9.4.0",
     "compression": "^1.7.4",
     "conf": "^10.2.0",
@@ -32,8 +31,6 @@
     "crypto-js": "^4.1.1",
     "deep-email-validator": "^0.1.21",
     "dotenv": "^10.0.0",
-    "email-existence": "^0.1.6",
-    "email-verifier": "^0.4.1",
     "envalid": "^7.1.0",
     "express": "^4.18.1",
     "helmet": "^4.6.0",
@@ -46,7 +43,6 @@
     "multer": "^1.4.5-lts.1",
     "node-recursive-directory": "^1.2.0",
     "owasp-password-strength-test": "^1.3.0",
-    "redis": "^4.6.7",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
     "routing-controllers-openapi": "^3.1.0",
@@ -59,10 +55,7 @@
     "winston-daily-rotate-file": "^4.5.5"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.51",
-    "@swc/core": "^1.2.108",
     "@types/bcrypt": "^5.0.0",
-    "@types/bull": "^3.15.9",
     "@types/compression": "^1.7.1",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.11",
@@ -87,7 +80,6 @@
     "lint-staged": "^11.0.0",
     "node-config": "^0.0.2",
     "node-gyp": "^8.1.0",
-    "nodemon": "^2.0.9",
     "pm2": "^5.1.0",
     "prettier": "^2.3.2",
     "supertest": "^6.2.2",
@@ -98,7 +90,7 @@
     "typescript": "^4.5.2"
   },
   "bin": {
-    "outlander": "./command.js"
+    "aand": "./command.js"
   },
   "eslintConfig": {
     "rules": {
