@@ -1,5 +1,5 @@
 import { model, Schema, Document } from "mongoose";
-import { Games } from "@interfaces/games.interface";
+import { Games } from "./../interfaces/games.interface";
 
 const gamesSchema: Schema = new Schema({
   name_th: {

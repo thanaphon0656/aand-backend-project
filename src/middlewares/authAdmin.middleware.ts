@@ -1,9 +1,9 @@
 import { NextFunction, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { SECRET_KEY } from "@config";
-import { HttpException } from "@exceptions/HttpException";
-import { DataStoredInToken, RequestWithAdmin } from "@interfaces/auth.interface";
-import adminModel from "@models/admin.model"; // ใช้เฉพาะ Admin Model
+import { SECRET_KEY } from "./../config";
+import { HttpException } from "./../exceptions/HttpException";
+import { DataStoredInToken, RequestWithAdmin } from "./../interfaces/auth.interface";
+import adminModel from "./../models/admin.model"; // ใช้เฉพาะ Admin Model
 
 const authAdminMiddleware = async (
   req: RequestWithAdmin,

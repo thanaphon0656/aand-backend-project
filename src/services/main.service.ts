@@ -1,7 +1,7 @@
 //model
-import playerModel from "@/models/player.model";
-import adminModel from "@/models/admin.model";
-import gamesModel from "@/models/games.model";
+import playerModel from "./../models/player.model";
+import adminModel from "./../models/admin.model";
+import gamesModel from "./../models/games.model";
 
 export default class MainService {
   public model: {

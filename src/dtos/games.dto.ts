@@ -2,9 +2,9 @@ import {
   IsString,
   IsNotEmpty,
 } from "class-validator";
-import { CustomIsNull, CustomIsDefined } from '@utils/validator';
-import { CustomIsNullForParam, CustomIsDefinedParam } from '@utils/validator';
-import { message } from '@dtos/main.dto';
+import { CustomIsNull, CustomIsDefined } from './../utils/validator';
+import { CustomIsNullForParam, CustomIsDefinedParam } from './../utils/validator';
+import { message } from './../dtos/main.dto';
 
 export class CreateGamesAdminDto {
   @IsString()

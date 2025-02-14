@@ -14,11 +14,11 @@ import {
   ParamUpdateGamesAdminDto,
   ParamDetailGamesAdminDto,
   ParamDeleteGamesAdminDto
-} from "@/dtos/games.dto";
-import GamesService from "@services/games.service";
-import authAdminMiddleware from "@middlewares/authAdmin.middleware";
-import { RequestWithAdmin } from "@interfaces/auth.interface";
-import validationMiddleware from "@middlewares/validation.middleware";
+} from "./../../dtos/games.dto";
+import GamesService from "./../../services/games.service";
+import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
+import { RequestWithAdmin } from "./../../interfaces/auth.interface";
+import validationMiddleware from "./../../middlewares/validation.middleware";
 
 @Controller("/admin/games")
 export default class AdminController {

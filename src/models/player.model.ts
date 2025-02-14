@@ -1,5 +1,5 @@
 import { model, Schema, Document } from "mongoose";
-import { Player } from "@interfaces/player.interface";
+import { Player } from "./../interfaces/player.interface";
 
 const playerSchema: Schema = new Schema(
   {

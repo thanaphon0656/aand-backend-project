@@ -7,10 +7,10 @@ import hpp from "hpp";
 import morgan from "morgan";
 import { connect, set } from "mongoose";
 import { useExpressServer } from "routing-controllers";
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from "@config";
-import { dbConnection } from "@databases";
-import errorMiddleware from "@middlewares/error.middleware";
-import { logger, stream } from "@utils/logger";
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from "./config";
+import { dbConnection } from "./databases";
+import errorMiddleware from "./middlewares/error.middleware";
+import { logger, stream } from "./utils/logger";
 
 class App {
   public app: express.Application;

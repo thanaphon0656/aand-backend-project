@@ -12,11 +12,11 @@ import {
   CreateAdminDto,
   LoginAdminDto,
   DeleteAdminDto
-} from "@/dtos/admin.dto";
-import AdminService from "@services/admin.service";
-import authAdminMiddleware from "@middlewares/authAdmin.middleware";
-import { RequestWithAdmin } from "@interfaces/auth.interface";
-import validationMiddleware from "@middlewares/validation.middleware";
+} from "./../../dtos/admin.dto";
+import AdminService from "./../../services/admin.service";
+import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
+import { RequestWithAdmin } from "./../../interfaces/auth.interface";
+import validationMiddleware from "./../../middlewares/validation.middleware";
 
 @Controller("/admin")
 export default class AdminController {

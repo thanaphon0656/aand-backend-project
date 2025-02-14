@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Admin } from "@/interfaces/admin.interface";
+import { Admin } from "./../interfaces/admin.interface";
 
 export interface DataStoredInToken {
   _id: string;

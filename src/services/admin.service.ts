@@ -1,7 +1,7 @@
-import MainService from "@services/main.service";
+import MainService from "./../services/main.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "@config"; // นำเข้า Secret Key
+import { SECRET_KEY } from "./../config"; // นำเข้า Secret Key
 
 export default class AdminService extends MainService {
   constructor() {

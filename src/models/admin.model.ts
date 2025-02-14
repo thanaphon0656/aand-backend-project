@@ -1,5 +1,5 @@
 import { model, Schema, Document } from "mongoose";
-import { Admin } from "@interfaces/admin.interface";
+import { Admin } from "./../interfaces/admin.interface";
 
 const adminSchema: Schema = new Schema({
   username: {
