@@ -67,7 +67,7 @@ class App {
         return;
       }
 
-      mongoose.set("strictQuery", true);
+      mongoose.set("strictQuery", false);
 
       if (this.env !== "production") {
         set("debug", false);
@@ -78,9 +78,15 @@ class App {
       logger.info("✅ Connected to MongoDB!");
     } catch (error) {
       logger.error("❌ MongoDB Connection Error:", error);
-      process.exit(1);
+
+      // 🔥 ไม่ใช้ process.exit(1); ปล่อยให้เซิร์ฟเวอร์รันต่อ
+      // และอาจให้ลองเชื่อมต่อใหม่อัตโนมัติหลังจาก 5 วินาที
+      setTimeout(() => {
+        this.connectToDatabase();
+      }, 5000);
     }
   }
+
 
   private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }));
