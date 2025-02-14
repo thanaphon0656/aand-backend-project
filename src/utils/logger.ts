@@ -1,25 +1,19 @@
 import { existsSync, mkdirSync } from "fs";
-import { join } from "path";
+import { join, resolve } from "path";
 import winston from "winston";
 import winstonDaily from "winston-daily-rotate-file";
 import { LOG_DIR } from "./../config";
 
-// logs dir
-const logDir: string = join(__dirname, LOG_DIR);
+const logDir: string = resolve(LOG_DIR || "logs");
 
 if (!existsSync(logDir)) {
-  mkdirSync(logDir);
+  mkdirSync(logDir, { recursive: true });
 }
 
-// Define log format
 const logFormat = winston.format.printf(
   ({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`
 );
 
-/*
- * Log Level
- * error: 0, warn: 1, info: 2, http: 3, verbose: 4, debug: 5, silly: 6
- */
 const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp({
@@ -32,7 +26,7 @@ const logger = winston.createLogger({
     new winstonDaily({
       level: "debug",
       datePattern: "YYYY-MM-DD",
-      dirname: logDir + "/debug", // log file /logs/debug/*.log in save
+      dirname: join(logDir, "debug"), // log file /logs/debug/*.log in save
       filename: `%DATE%.log`,
       maxFiles: 30, // 30 Days saved
       json: false,
@@ -42,7 +36,7 @@ const logger = winston.createLogger({
     new winstonDaily({
       level: "error",
       datePattern: "YYYY-MM-DD",
-      dirname: logDir + "/error", // log file /logs/error/*.log in save
+      dirname: join(logDir, "error"), // log file /logs/error/*.log in save
       filename: `%DATE%.log`,
       maxFiles: 30, // 30 Days saved
       handleExceptions: true,
@@ -52,6 +46,7 @@ const logger = winston.createLogger({
   ],
 });
 
+// Add Console Transport
 logger.add(
   new winston.transports.Console({
     format: winston.format.combine(
@@ -61,9 +56,10 @@ logger.add(
   })
 );
 
+// Logging stream for morgan
 const stream = {
   write: (message: string) => {
-    logger.info(message.substring(0, message.lastIndexOf("\n")));
+    logger.info(message.trim());
   },
 };
 
