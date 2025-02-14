@@ -13,6 +13,5 @@ validateEnv();
         app.listen();
     } catch (error) {
         console.error("🔥 Server initialization failed:", error);
-        process.exit(1);
     }
 })();

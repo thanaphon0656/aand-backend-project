@@ -37,10 +37,8 @@ class App {
       logger.info(`=================================`);
     });
 
-    // Handle Unhandled Rejections
     process.on("unhandledRejection", (reason, promise) => {
       logger.error("🔥 Unhandled Rejection:", reason);
-      server.close(() => process.exit(1));
     });
 
     // Handle SIGINT (Ctrl+C)

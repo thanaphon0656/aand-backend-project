@@ -21,7 +21,7 @@ const authAdminMiddleware = async (
 
     const verificationResponse = verify(token, SECRET_KEY) as DataStoredInToken;
     if (!verificationResponse?._id) {
-      return next(new HttpException(401, "Unauthorized: Invalid tokenTest"));
+      return next(new HttpException(401, "Unauthorized: Invalid token"));
     }
 
     const admin = await adminModel.findById(verificationResponse._id);
