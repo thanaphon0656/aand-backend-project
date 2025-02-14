@@ -5,7 +5,7 @@ import express from "express";
 import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
-import { connect, set } from "mongoose";
+import mongoose, { connect, set } from "mongoose";
 import { useExpressServer } from "routing-controllers";
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from "./config";
 import { dbConnection } from "./databases";
@@ -53,13 +53,17 @@ class App {
     return this.app;
   }
 
+
   private async connectToDatabase() {
     try {
+
+      mongoose.set("strictQuery", false);
+
       if (this.env !== "production") {
         set("debug", false);
       }
 
-      await connect(dbConnection.url); // ไม่ต้องใช้ options ใน mongoose@6+
+      await connect(dbConnection.url);
       logger.info("✅ Connected to MongoDB!");
     } catch (error) {
       logger.error("❌ MongoDB Connection Error:", error);
