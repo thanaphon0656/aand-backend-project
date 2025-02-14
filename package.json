@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon",
     "build": "tsc",
-    "deploy:prod": "npm run build && pm2 start dist/server.js --name aand-api"
+    "deploy:prod": "cross-env NODE_ENV=production pm2 start ts-node --name aand-backed-api -- server.ts"
   },  
   "dependencies": {
     "@socket.io/redis-adapter": "^8.1.0",
