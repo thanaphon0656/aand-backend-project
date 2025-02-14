@@ -43,14 +43,12 @@ class App {
 
     // Handle SIGINT (Ctrl+C)
     process.on("SIGINT", () => {
-      logger.info("👋 Shutting down server...");
-      server.close(() => process.exit(0));
+      logger.info("👋 Received SIGINT. Ignoring to keep server running...");
     });
 
     // Handle SIGTERM
     process.on("SIGTERM", () => {
-      logger.info("🚦 SIGTERM received. Shutting down...");
-      server.close(() => process.exit(0));
+      logger.info("🚦 SIGTERM received. Ignoring to keep server running...");
     });
   }
 
@@ -77,8 +75,6 @@ class App {
     } catch (error) {
       logger.error("❌ MongoDB Connection Error:", error);
 
-      // 🔥 ไม่ใช้ process.exit(1); ปล่อยให้เซิร์ฟเวอร์รันต่อ
-      // และอาจให้ลองเชื่อมต่อใหม่อัตโนมัติหลังจาก 5 วินาที
       setTimeout(() => {
         this.connectToDatabase();
       }, 5000);
