@@ -6,8 +6,6 @@ import helmet from "helmet";
 import hpp from "hpp";
 import morgan from "morgan";
 import { connect, set } from "mongoose";
-import swaggerJSDoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
 import { useExpressServer } from "routing-controllers";
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from "@config";
 import { dbConnection } from "@databases";
@@ -20,18 +18,14 @@ class App {
   public port: string | number;
 
   constructor(controllers: Function[]) {
-    try {
-      this.app = express();
-      this.env = NODE_ENV || "development";
-      this.port = PORT || 3000;
-      this.connectToDatabase();
-      this.initializeMiddlewares();
-      this.initializeRoutes(controllers);
-      this.initializeSwagger();
-      this.initializeErrorHandling();
-    } catch (error) {
-      logger.error(error);
-    }
+    this.app = express();
+    this.env = NODE_ENV || "development";
+    this.port = PORT || 3000;
+
+    this.connectToDatabase();
+    this.initializeMiddlewares();
+    this.initializeRoutes(controllers);
+    this.initializeErrorHandling();
   }
 
   public listen() {
@@ -41,24 +35,36 @@ class App {
       logger.info(`🚀 App listening on the port ${this.port}`);
       logger.info(`=================================`);
     });
+
+    // Handle Unhandled Rejections
+    process.on("unhandledRejection", (reason, promise) => {
+      logger.error("🔥 Unhandled Rejection:", reason);
+      server.close(() => process.exit(1));
+    });
+
+    // Handle SIGINT (Ctrl+C)
+    process.on("SIGINT", () => {
+      logger.info("👋 Shutting down server...");
+      server.close(() => process.exit(0));
+    });
   }
 
   public getServer() {
     return this.app;
   }
 
-  private connectToDatabase() {
-    if (this.env !== "production") {
-      set("debug", false);
-    }
+  private async connectToDatabase() {
+    try {
+      if (this.env !== "production") {
+        set("debug", false);
+      }
 
-    connect(dbConnection.url, dbConnection.options)
-      .then(() => {
-        logger.info(`Connected to MongoDB!`);
-      })
-      .catch((err) => {
-        logger.error(err);
-      });
+      await connect(dbConnection.url); // ไม่ต้องใช้ options ใน mongoose@6+
+      logger.info("✅ Connected to MongoDB!");
+    } catch (error) {
+      logger.error("❌ MongoDB Connection Error:", error);
+      process.exit(1);
+    }
   }
 
   private initializeMiddlewares() {
@@ -78,38 +84,22 @@ class App {
   private initializeRoutes(controllers: Function[]) {
     useExpressServer(this.app, {
       cors: {
-        origin: ORIGIN,
-        credentials: CREDENTIALS,
+        origin: ORIGIN || "*",
+        credentials: CREDENTIALS || false,
         allowedHeaders: [
           "X-Requested-With",
           "Content-Type",
           "Authorization",
           "g-recaptcha-token",
         ],
-        methods: "GET,OPTIONS,PUT,POST,DELETE",
+        methods: ["GET", "OPTIONS", "PUT", "POST", "DELETE"],
         exposedHeaders: ["set-cookie"],
         preflightContinue: false,
       },
       routePrefix: "/api",
-      controllers: controllers,
+      controllers,
       defaultErrorHandler: false,
     });
-  }
-
-  private initializeSwagger() {
-    const options = {
-      swaggerDefinition: {
-        info: {
-          title: "REST API",
-          version: "1.0.0",
-          description: "Example docs",
-        },
-      },
-      apis: ["swagger.yaml"],
-    };
-
-    const specs = swaggerJSDoc(options);
-    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
   }
 
   private initializeErrorHandling() {
