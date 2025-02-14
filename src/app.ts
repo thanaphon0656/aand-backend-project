@@ -16,6 +16,7 @@ class App {
   public app: express.Application;
   public env: string;
   public port: string | number;
+  private static isConnected = false; // Connect DB Duplicate
 
   constructor(controllers: Function[]) {
     this.app = express();
@@ -47,23 +48,33 @@ class App {
       logger.info("👋 Shutting down server...");
       server.close(() => process.exit(0));
     });
+
+    // Handle SIGTERM
+    process.on("SIGTERM", () => {
+      logger.info("🚦 SIGTERM received. Shutting down...");
+      server.close(() => process.exit(0));
+    });
   }
 
   public getServer() {
     return this.app;
   }
 
-
   private async connectToDatabase() {
     try {
+      if (App.isConnected) {
+        logger.info("🔄 Already connected to MongoDB. Skipping...");
+        return;
+      }
 
-      mongoose.set("strictQuery", false);
+      mongoose.set("strictQuery", true);
 
       if (this.env !== "production") {
         set("debug", false);
       }
 
       await connect(dbConnection.url);
+      App.isConnected = true;
       logger.info("✅ Connected to MongoDB!");
     } catch (error) {
       logger.error("❌ MongoDB Connection Error:", error);
@@ -88,7 +99,7 @@ class App {
   private initializeRoutes(controllers: Function[]) {
     useExpressServer(this.app, {
       cors: {
-        origin: ORIGIN || "*",
+        origin: ORIGIN || "*", // ✅ แก้ไข fallback กรณี `ORIGIN` เป็น `undefined`
         credentials: CREDENTIALS || false,
         allowedHeaders: [
           "X-Requested-With",
