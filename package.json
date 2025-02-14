@@ -5,15 +5,10 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "cross-env NODE_ENV=development pm2 start ts-node --name aand-api -- server.ts",
-    "dev": "cross-env NODE_ENV=development pm2 start ts-node --name aand-api -- server.ts",
+    "dev": "cross-env NODE_ENV=development nodemon",
     "build": "tsc",
-    "test": "jest --forceExit",
-    "lint": "eslint --ignore-path .gitignore --ext .ts src/",
-    "lint:fix": "npm run lint -- --fix",
-    "deploy:prod": "npm run build && pm2 start ecosystem.config.js --only aand-api-prod",
-    "deploy:dev": "npm run build && pm2 start ecosystem.config.js --only aand-api-dev"
-  },
+    "deploy:prod": "npm run build && pm2 start dist/server.js --name aand-api"
+  },  
   "dependencies": {
     "@socket.io/redis-adapter": "^8.1.0",
     "aws-sdk": "^2.1205.0",
