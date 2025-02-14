@@ -1,9 +1,13 @@
+require("tsconfig-paths/register");
+
 import App from "@/app";
 import validateEnv from "@utils/validateEnv";
-import getFile from "node-recursive-directory";
+import recursiveDirectory from "node-recursive-directory";
+
 validateEnv();
+
 (async () => {
-  const files = await getFile(__dirname + "/controllers/", true);
-  const app = new App(files.map((file) => file.fullpath));
-  app.listen();
+    const files = await recursiveDirectory(__dirname + "/controllers/", true);
+    const app = new App(files.map((file) => file.fullpath));
+    app.listen();
 })();
