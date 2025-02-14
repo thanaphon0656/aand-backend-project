@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "start": "npm run build && cross-env NODE_ENV=production pm2 start dist/server.js --name aand-api",
-    "dev": "cross-env NODE_ENV=development pm2 start ts-node --name aand-api -- server.ts",
+    "dev": "cross-env NODE_ENV=development nodemon",
     "build": "tsc",
     "test": "jest --forceExit",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",

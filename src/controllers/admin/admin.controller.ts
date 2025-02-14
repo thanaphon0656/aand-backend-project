@@ -8,10 +8,10 @@ import {
   Res,
 } from "routing-controllers";
 import { Request, Response, NextFunction } from "express";
-import { 
-  CreateAdminDto, 
-  LoginAdminDto, 
-  DeleteAdminDto 
+import {
+  CreateAdminDto,
+  LoginAdminDto,
+  DeleteAdminDto
 } from "@/dtos/admin.dto";
 import AdminService from "@services/admin.service";
 import authAdminMiddleware from "@middlewares/authAdmin.middleware";
@@ -29,8 +29,8 @@ export default class AdminController {
       const data = req.body;
       const [result, message] = await this.adminService.createAdmin(data);
       return res.status(200).json({ status: result, message });
-    } catch (err: any) {
-      next(err);
+    } catch (error: any) {
+      throw error;
     }
   }
 
@@ -48,19 +48,19 @@ export default class AdminController {
       res.setHeader("Set-Cookie", cookie);
 
       return res.status(200).json({ data, message, token });
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      throw error;
     }
   }
 
   @Get('/all')
   @UseBefore(authAdminMiddleware)
-  async getAllAdmin(@Req() req: Request, @Res() res: Response, next: NextFunction) {
+  async getAllAdmin(@Res() res: Response, next: NextFunction) {
     try {
       const [status, result] = await this.adminService.getAllAdmins();
       return res.status(200).json({ status: status, data: result });
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -80,14 +80,14 @@ export default class AdminController {
 
       return res.status(200).json({ status: true, data: result });
     } catch (error) {
-      next(error);
+      throw error;
     }
   }
 
   @Delete('/delete/:id')
   @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(DeleteAdminDto, 'params'))
-  async deleteSkillMasterData(@Req() req: Request, @Res() res: Response) {
+  async deleteAdmin(@Req() req: Request, @Res() res: Response) {
     try {
       const id: string = req.params.id;
       const [result, message] = await this.adminService.deleteAdmin(id);
