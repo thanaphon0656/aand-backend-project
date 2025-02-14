@@ -55,8 +55,6 @@
     "winston-daily-rotate-file": "^4.5.5"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.51",
-    "@swc/core": "^1.2.108",
     "@types/bcrypt": "^5.0.0",
     "@types/bull": "^3.15.9",
     "@types/compression": "^1.7.1",
