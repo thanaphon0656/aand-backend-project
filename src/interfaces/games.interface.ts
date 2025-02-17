@@ -20,11 +20,3 @@ export interface UpdateGamesAdmin {
   name_en: string;
   description: string;
 }
-
-export interface DetailGamesAdmin {
-  id: string | mongoose.Types.ObjectId;
-}
-
-export interface DeleteGamesAdmin {
-  id: string | mongoose.Types.ObjectId;
-}

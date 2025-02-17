@@ -1,11 +1,7 @@
 import MainService from "./../services/main.service";
-import mongoose from "mongoose";
-import { HttpException } from "./../exceptions/HttpException";
 import {
   CreateGamesAdmin,
-  UpdateGamesAdmin,
-  DetailGamesAdmin,
-  DeleteGamesAdmin
+  UpdateGamesAdmin
 } from './../interfaces/games.interface';
 
 export default class GamesService extends MainService {
