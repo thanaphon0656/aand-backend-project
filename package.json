@@ -6,9 +6,10 @@
   "license": "ISC",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/server.ts",
-    "build": "tsc",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "build": "npm run clean && tsc",
     "start": "node dist/server.js",
-    "deploy:prod": "cross-env NODE_ENV=production pm2 start dist/server.js --name aand-api"
+    "deploy:prod": "npm run build && cross-env NODE_ENV=production pm2 restart dist/server.js --name aand-api || pm2 start dist/server.js --name aand-api"
   },
   "dependencies": {
     "aws-sdk": "^2.1205.0",
