@@ -1,5 +1,5 @@
 import { model, Schema, Document } from "mongoose";
-import { Folder } from "@/interfaces/folder.interface";
+import { Folder } from "./../interfaces/folder.interface";
 
 const folderSchema: Schema = new Schema({
   name: {

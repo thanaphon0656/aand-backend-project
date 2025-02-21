@@ -9,7 +9,7 @@ import {
   UploadedFile,
 } from "routing-controllers";
 import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
-import { uploadMiddleware } from "@middlewares/upload.midlleware";
+import { uploadMiddleware } from "./../../middlewares/upload.midlleware";
 
 @Controller("/admin/files")
 export default class FilesController {

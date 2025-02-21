@@ -1,4 +1,4 @@
-import UploadS3Service from "@/services/uploadToS3.service";
+import UploadS3Service from "../services/uploadToS3.service";
 import { IMAGE_EXTENSIONS, TYPE_MEDIA } from "./../consts/file";
 import folderModel from "./../models/folder.model";
 import mongoose from "mongoose";
