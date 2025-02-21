@@ -11,6 +11,8 @@
     "deploy:prod": "cross-env NODE_ENV=production pm2 start dist/server.js --name aand-api"
   },
   "dependencies": {
+    "aws-sdk": "^2.1205.0",
+    "md5": "^2.3.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.0",
     "class-transformer": "^0.3.1",

@@ -1,49 +1,46 @@
-import { model, Schema, Document, Types } from "mongoose";
-import { File } from "../interfaces/file.interface";
+import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const fileSchema: Schema = new Schema({
-  key: {
+const fileSchema = new Schema({
+  key: String,
+  bucket: String,
+  location: String,
+  versionId: String,
+  folder: {
+    type: Schema.Types.ObjectId,
+    ref: 'folder'
+  },
+  mediaType: {
     type: String,
-    required: true,
+    default: null
   },
-  bucket: {
+  fileExtension: {
     type: String,
-    required: true,
+    default: null
   },
-  location: {
-    type: String,
-    required: true,
-  },
-  version_id: {
-    type: String,
-    required: false,
-  },
-  folder_id: {
-    type: Types.ObjectId,
-    ref: "folder",
-    required: true,
-  },
-  media_type: {
-    type: String,
-    required: true,
-  },
-  file_extension: {
-    type: String,
-    required: true,
-  },
-  created_at: {
+  createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
-  updated_at: {
+  updatedAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  current_time: {
     type: Date,
     default: Date.now,
   },
 });
 
-const FileModel = model<File & Document>(
-  "file",
-  fileSchema
-);
+fileSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+    // remove these props when object is serialized
+    delete ret._id;
+  },
+});
 
-export default FileModel;
+const File = mongoose.model("file", fileSchema);
+
+export default File;
