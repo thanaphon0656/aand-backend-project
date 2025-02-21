@@ -16,6 +16,7 @@
     "declaration": true,
     "importHelpers": true,
     "allowJs": false,
+    "incremental": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./",
