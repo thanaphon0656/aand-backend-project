@@ -20,8 +20,8 @@
     "noEmit": false,     
     "skipLibCheck": true, 
     "isolatedModules": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "dist",
+    "rootDir": "src",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
@@ -39,5 +39,5 @@
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "logs", "tests"]
+  "exclude": ["node_modules", "logs", "tests", "dist"]
 }
