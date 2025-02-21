@@ -17,9 +17,7 @@
     "importHelpers": true,
     "allowJs": false,
     "incremental": true,  
-    "noEmit": false,     
     "skipLibCheck": true, 
-    "isolatedModules": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./",
@@ -39,5 +37,5 @@
     }
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "logs", "tests"]
+  "exclude": ["node_modules", "logs", "tests"]
 }
