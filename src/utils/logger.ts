@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync } from "fs";
 import { join, resolve } from "path";
-import winston from "winston";
-import winstonDaily from "winston-daily-rotate-file";
+import winston = require("winston");
+import winstonDaily = require("winston-daily-rotate-file");
 import { LOG_DIR } from "./../config";
 
 const logDir: string = resolve(LOG_DIR || "logs");

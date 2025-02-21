@@ -1,9 +1,6 @@
 import "reflect-metadata";
 import compression from "compression";
-import cookieParser from "cookie-parser";
-import express from "express";
 import helmet from "helmet";
-import hpp from "hpp";
 import morgan from "morgan";
 import mongoose, { connect, set } from "mongoose";
 import { useExpressServer } from "routing-controllers";
@@ -11,6 +8,9 @@ import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from "./config";
 import { dbConnection } from "./databases";
 import errorMiddleware from "./middlewares/error.middleware";
 import { logger, stream } from "./utils/logger";
+import express = require("express");
+import cookieParser = require("cookie-parser");
+import hpp = require("hpp");
 
 class App {
   public app: express.Application;
