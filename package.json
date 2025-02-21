@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/server.ts",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
-    "build": "npm run clean && npx tsc",
-    "start": "node dist/server.js",
-    "deploy:prod": "npm run build && cross-env NODE_ENV=production pm2 restart dist/server.js --name aand-api || pm2 start dist/server.js --name aand-api"
+    "build": "npm run clean && NODE_OPTIONS='--max-old-space-size=4096' npx tsc",
+    "start": "NODE_OPTIONS='--max-old-space-size=4096' node dist/server.js",
+    "deploy:prod": "npm run build && cross-env NODE_ENV=production pm2 restart aand-api || pm2 start dist/server.js --name aand-api"
   },
   "dependencies": {
     "aws-sdk": "^2.1205.0",
