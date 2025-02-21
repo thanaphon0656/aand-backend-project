@@ -1,12 +1,11 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
     "lib": ["ES2020", "DOM"],
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node",
     "esModuleInterop": true,
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -16,8 +15,10 @@
     "declaration": true,
     "importHelpers": true,
     "allowJs": false,
-    "incremental": true,  
-    "skipLibCheck": true, 
+    "incremental": true,
+    "noEmit": false,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./",
@@ -37,5 +38,5 @@
     }
   },
   "include": ["src"],
-  "exclude": ["node_modules", "logs", "tests"]
+  "exclude": ["node_modules", "dist", "logs", "tests"]
 }
