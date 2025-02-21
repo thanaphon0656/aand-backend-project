@@ -38,6 +38,6 @@
       "@jobs/*": ["src/jobs/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "logs", "tests"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "logs", "tests"]
 }
