@@ -1,11 +1,12 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
     "lib": ["ES2020", "DOM"],
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "moduleResolution": "Node",
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -15,9 +16,9 @@
     "declaration": true,
     "importHelpers": true,
     "allowJs": false,
-    "incremental": true,
-    "noEmit": false,
-    "skipLibCheck": true,
+    "incremental": true,  
+    "noEmit": false,     
+    "skipLibCheck": true, 
     "isolatedModules": true,
     "outDir": "./dist",
     "rootDir": "./src",
@@ -37,6 +38,6 @@
       "@jobs/*": ["src/jobs/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "logs", "tests"]
 }
