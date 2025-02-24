@@ -20,7 +20,7 @@ export default class CharacterPuzzleLevelController {
   }
 
   @Patch("/update/:id")
-  @UseBefore(validationMiddleware(UpdateCharacterPuzzleLevelDto, "body"))
+  @UseBefore(validationMiddleware(UpdateCharacterPuzzleLevelDto, "params"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;

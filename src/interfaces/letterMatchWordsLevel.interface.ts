@@ -5,6 +5,7 @@ export interface LetterMatchWordsLevel {
   game_id: string | Types.ObjectId;
   level_id: string;
   title: string;
+  letter_match_words_master_id: string[];
   description: string;
   difficulty: "easy" | "medium" | "hard";
   time_limit: number;
@@ -17,6 +18,7 @@ export interface CreateLetterMatchWordsLevel {
   game_id: string | Types.ObjectId;
   level_id: string;
   title: string;
+  letter_match_words_master_id: string[];
   description: string;
   difficulty: "easy" | "medium" | "hard";
   time_limit: number;

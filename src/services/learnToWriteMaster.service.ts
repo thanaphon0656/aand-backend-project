@@ -54,7 +54,6 @@ export default class LearnToWriteService extends MainService {
   public async getAllLearnToWriteMaster(): Promise<[boolean, any]> {
     try {
       const entries = await this.model.learnToWriteMaster.find();
-      console.log("records", entries)
       return [true, entries];
     } catch (error) {
       throw error;

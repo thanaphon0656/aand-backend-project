@@ -1,4 +1,6 @@
-import { IsString, IsArray, IsNotEmpty, IsNumber, IsBoolean, IsIn } from "class-validator";
+import { IsString, IsNotEmpty, IsNumber, IsIn } from "class-validator";
+import { CustomIsNullForParam, CustomIsDefinedParam } from "./../utils/validator";
+import { message } from "./../dtos/main.dto";
 
 export class CreateSpellingQuestLevelDto {
   @IsString()
@@ -17,9 +19,9 @@ export class CreateSpellingQuestLevelDto {
   @IsNotEmpty()
   public description: string;
 
-  @IsArray()
+  @IsString()
   @IsNotEmpty()
-  public spelling_quest_master_id: string[];
+  public spelling_quest_master_id: string;
 
   @IsString()
   @IsIn(["easy", "medium", "hard"])
@@ -31,24 +33,7 @@ export class CreateSpellingQuestLevelDto {
 
 export class UpdateSpellingQuestLevelDto {
   @IsString()
-  public level_id?: string;
-
-  @IsString()
-  public title?: string;
-
-  @IsString()
-  public description?: string;
-
-  @IsArray()
-  public spelling_quest_master_id?: string[];
-
-  @IsString()
-  @IsIn(["easy", "medium", "hard"])
-  public difficulty?: "easy" | "medium" | "hard";
-
-  @IsNumber()
-  public time_limit?: number;
-
-  @IsBoolean()
-  public is_active?: boolean;
+  @CustomIsNullForParam({ message: message.notNull })
+  @CustomIsDefinedParam({ message: message.require })
+  public id: string;
 }

@@ -19,7 +19,7 @@ export interface CreateLearnToWriteLevel {
   level_id: string;
   title: string;
   description: string;
-  learn_to_write_master_id: string[];
+  learn_to_write_master_id: string;
   difficulty: "easy" | "medium" | "hard";
   time_limit: number;
 }

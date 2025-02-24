@@ -15,6 +15,11 @@ const letterMatchWordsLevelSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  letter_match_words_master_id: [{
+    type: Types.ObjectId,
+    ref: "letter_match_words_master",
+    required: true,
+  }],
   description: {
     type: String,
     required: true,

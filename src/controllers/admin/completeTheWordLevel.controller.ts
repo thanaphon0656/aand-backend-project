@@ -20,7 +20,7 @@ export default class CompleteTheWordLevelController {
   }
 
   @Patch("/update/:id")
-  @UseBefore(validationMiddleware(UpdateCompleteTheWordLevelDto, "body"))
+  @UseBefore(validationMiddleware(UpdateCompleteTheWordLevelDto, "params"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;

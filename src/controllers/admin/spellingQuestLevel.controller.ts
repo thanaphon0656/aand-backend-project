@@ -20,7 +20,7 @@ export default class SpellingQuestLevelController {
   }
 
   @Patch("/update/:id")
-  @UseBefore(validationMiddleware(UpdateSpellingQuestLevelDto, "body"))
+  @UseBefore(validationMiddleware(UpdateSpellingQuestLevelDto, "params"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;

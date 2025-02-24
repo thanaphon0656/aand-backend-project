@@ -23,10 +23,15 @@ export default class LearnToWriteLevelController {
   }
 
   @Patch("/update/:id")
-  @UseBefore(validationMiddleware(UpdateLearnToWriteLevelDto, "body"))
+  @UseBefore(validationMiddleware(UpdateLearnToWriteLevelDto, "params"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
-      const id = req.params.id;
+      const id: string = req.params.id;
+      const data = req.body;
+      
+      if (!data || Object.keys(data).length === 0) {
+        return res.status(400).json({ status: false, message: "No data provided for update." });
+      }
       const [status, result] = await this.learnToWriteLevelService.updateLearnToWriteLevel(id, req.body);
       return res.status(status ? 200 : 400).json({ status, data: result });
     } catch (error) {

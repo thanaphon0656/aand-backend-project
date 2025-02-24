@@ -19,6 +19,11 @@ const completeTheWordLevelSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  complete_the_word_master_id: {
+    type: Types.ObjectId,
+    ref: "complete_the_word_master",
+    required: true,
+  },
   difficulty: {
     type: String,
     enum: ["easy", "medium", "hard"],

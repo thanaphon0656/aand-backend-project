@@ -19,13 +19,11 @@ const learnToWriteLevelSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  learn_to_write_master_id: [
-    {
-      type: Types.ObjectId,
-      ref: "learn_to_write_master",
-      required: true,
-    },
-  ],
+  learn_to_write_master_id: {
+    type: Types.ObjectId,
+    ref: "learn_to_write_master",
+    required: true,
+  },
   difficulty: {
     type: String,
     enum: ["easy", "medium", "hard"],

@@ -6,6 +6,7 @@ export interface CompleteTheWordLevel {
   level_id: string;
   title: string;
   description: string;
+  complete_the_word_master_id: Types.ObjectId;
   difficulty: "easy" | "medium" | "hard";
   time_limit: number;
   is_active: boolean;
