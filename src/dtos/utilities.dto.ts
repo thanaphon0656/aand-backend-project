@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsNumber, IsOptional, IsIn } from 'class-validator';
-import { CustomIsNull, CustomIsDefined } from '@utils/validator';
-import { message } from '@dtos/main.dto';
+import { CustomIsNull, CustomIsDefined } from '../utils/validator';
+import { message } from '../dtos/main.dto';
 
 export class PaginationV1Dto {
   @IsNumber()
