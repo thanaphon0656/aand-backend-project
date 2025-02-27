@@ -3,12 +3,12 @@ import { checkPageLimit, buildDataReturn } from "./../utils/pagination";
 import { PaginationV1WithApiKeyDto } from './../dtos/utilities.dto';
 import { HttpException } from "./../exceptions/HttpException";
 
-export default class LearnToWriteService extends MainService {
+export default class LetterMatchWordsService extends MainService {
   constructor() {
     super();
   }
 
-  public async listLearnToWrite(pagination: PaginationV1WithApiKeyDto): Promise<any> {
+  public async listLetterMatchWords(pagination: PaginationV1WithApiKeyDto): Promise<any> {
     if (pagination.api_key !== process.env.API_KEY) {
       throw new HttpException(400, 'API key is not found');
     }
@@ -34,15 +34,15 @@ export default class LearnToWriteService extends MainService {
     const query: any = { is_active: true };
 
     if (pagination.search) {
-      query.difficulty = { $regex: new RegExp(pagination.search, 'i') };
+      query.level_id = { $regex: new RegExp(pagination.search, 'i') };
     }
     
-    const result = await this.model.learnToWriteLevel.find(query)
+    const result = await this.model.letterMatchWordsLevel.find(query)
       .sort(sort_data)
       .lean()
-      .populate("learn_to_write_master_id");
+      .populate("letter_match_words_master_id");
 
-    const total = await this.model.learnToWriteLevel.countDocuments(query);
+    const total = await this.model.letterMatchWordsLevel.countDocuments(query);
 
     const paginatedData = await checkPageLimit(result, pagination.limit, pagination.page);
 

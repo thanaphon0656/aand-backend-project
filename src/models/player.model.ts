@@ -9,6 +9,10 @@ const playerSchema: Schema = new Schema(
       unique: true,
       index: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
     facebook_access_token: {
       type: String,
       default: null,
@@ -17,7 +21,7 @@ const playerSchema: Schema = new Schema(
       type: String,
       default: null,
     },
-    appleid_access_token: {
+    apple_access_token: {
       type: String,
       default: null,
     },
