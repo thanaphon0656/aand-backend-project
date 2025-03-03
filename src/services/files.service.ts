@@ -1,5 +1,5 @@
-import MainService from "@services/main.service";
-import UploadS3Service from "../services/uploadToS3.service";
+import MainService from "./../services/main.service";
+import UploadS3Service from "./../services/uploadToS3.service";
 import { IMAGE_EXTENSIONS, TYPE_MEDIA } from "./../consts/file";
 import folderModel from "./../models/folder.model";
 import { HttpException } from "./../exceptions/HttpException";

@@ -2,8 +2,8 @@ import {
   IsString
 } from "class-validator";
 
-import { CustomIsNullForParam, CustomIsDefinedParam } from '@utils/validator';
-import { message } from '@dtos/main.dto';
+import { CustomIsNullForParam, CustomIsDefinedParam } from './../utils/validator';
+import { message } from './../dtos/main.dto';
 
 export class DeleteFilePramDTO {
   @IsString()
