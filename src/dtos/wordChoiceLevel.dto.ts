@@ -2,7 +2,7 @@ import { IsString, IsNotEmpty, IsIn, IsNumber } from "class-validator";
 import { CustomIsNullForParam, CustomIsDefinedParam } from "./../utils/validator";
 import { message } from "./../dtos/main.dto";
 
-export class CreateCompleteTheWordLevelDto {
+export class CreateWordChoiceLevelDto {
   @IsString()
   @IsNotEmpty()
   public game_id: string;
@@ -21,7 +21,7 @@ export class CreateCompleteTheWordLevelDto {
 
   @IsString()
   @IsNotEmpty()
-  public complete_the_word_master_id: string;
+  public word_choice_master_id: string;
 
   @IsString()
   @IsIn(["easy", "medium", "hard"])
@@ -31,7 +31,7 @@ export class CreateCompleteTheWordLevelDto {
   public time_limit: number;
 }
 
-export class UpdateCompleteTheWordLevelDto {
+export class UpdateWordChoiceLevelDto {
   @IsString()
   @CustomIsNullForParam({ message: message.notNull })
   @CustomIsDefinedParam({ message: message.require })

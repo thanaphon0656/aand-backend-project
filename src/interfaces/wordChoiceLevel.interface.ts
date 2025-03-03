@@ -1,12 +1,12 @@
 import { Types } from "mongoose";
 
-export interface CompleteTheWordLevel {
+export interface WordChoiceLevel {
   _id?: string | Types.ObjectId;
   game_id: string | Types.ObjectId;
   level_id: string;
   title: string;
   description: string;
-  complete_the_word_master_id: Types.ObjectId;
+  word_choice_master_id: Types.ObjectId;
   difficulty: "easy" | "medium" | "hard";
   time_limit: number;
   is_active: boolean;
@@ -14,21 +14,21 @@ export interface CompleteTheWordLevel {
   updated_at: Date;
 }
 
-export interface CreateCompleteTheWordLevel {
+export interface CreateWordChoiceLevel {
   game_id: string;
   level_id: string;
   title: string;
   description: string;
-  complete_the_word_master_id: Types.ObjectId;
+  word_choice_master_id: Types.ObjectId;
   difficulty: "easy" | "medium" | "hard";
   time_limit: number;
 }
 
-export interface UpdateCompleteTheWordLevel {
+export interface UpdateWordChoiceLevel {
   level_id?: string;
   title?: string;
   description?: string;
-  complete_the_word_master_id: Types.ObjectId;
+  word_choice_master_id: Types.ObjectId;
   difficulty?: "easy" | "medium" | "hard";
   time_limit?: number;
   is_active?: boolean;

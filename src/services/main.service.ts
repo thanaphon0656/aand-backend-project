@@ -13,6 +13,9 @@ import completeTheWordMasterModel from "./../models/completeTheWordMaster.model"
 import completeTheWordLevelModel from "./../models/completeTheWordLevel.model";
 import folderModel from "./../models/folder.model";
 import fileModel from "./../models/file.model";
+import leaderboardHistoryModel from "./../models/leaderboardHistory.model";
+import wordChoiceMasterModel from "./../models/wordChoiceMaster.model";
+import wordChoiceLevelModel from "./../models/wordChoiceLevel.model";
 
 export default class MainService {
   public model: {
@@ -31,6 +34,9 @@ export default class MainService {
     completeTheWordLevel: typeof completeTheWordLevelModel;
     folder: typeof folderModel;
     file: typeof fileModel;
+    leaderboardHistory: typeof leaderboardHistoryModel;
+    wordChoiceMaster: typeof wordChoiceMasterModel;
+    wordChoiceLevel: typeof wordChoiceLevelModel;
   };
 
   constructor() {
@@ -50,6 +56,9 @@ export default class MainService {
       completeTheWordLevel: completeTheWordLevelModel,
       folder: folderModel,
       file: fileModel,
+      leaderboardHistory: leaderboardHistoryModel,
+      wordChoiceMaster: wordChoiceMasterModel,
+      wordChoiceLevel: wordChoiceLevelModel,
     };
   }
 }
