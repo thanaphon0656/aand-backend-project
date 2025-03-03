@@ -82,4 +82,30 @@ export default class FilesService {
       location,
     };
   }
+
+  public async deleteFile(key: string) {
+    try {
+      if (!key) {
+        throw new Error("S3 key is required");
+      }
+
+      const params = {
+        Bucket: S3_BUCKET,
+        Key: key,
+      };
+
+      // ลบไฟล์จาก S3
+      await s3.deleteObject(params).promise();
+
+      // ลบไฟล์จาก MongoDB
+      await File.findOneAndDelete({ key });
+
+      return {
+        status: true,
+        message: "File successfully deleted from S3 and database",
+      };
+    } catch (err) {
+      throw new Error(`Error deleting file: ${err.message}`);
+    }
+  }
 }

@@ -1,7 +1,6 @@
 import {
   IsString,
   IsNotEmpty,
-  IsBoolean,
 } from "class-validator";
 import { CustomIsNull, CustomIsDefined } from "./../utils/validator";
 import { CustomIsNullForParam, CustomIsDefinedParam } from "./../utils/validator";

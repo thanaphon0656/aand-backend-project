@@ -1,7 +1,7 @@
 import MainService from "./../services/main.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "./../config"; // นำเข้า Secret Key
+import { JWT_SECRET } from "./../config"; // นำเข้า Secret Key
 
 export default class AdminService extends MainService {
   constructor() {
@@ -54,7 +54,7 @@ export default class AdminService extends MainService {
       }
 
       const expiresIn = 3 * 60 * 60; // 10800 sec (3 hr)
-      const token = jwt.sign({ _id: admin._id }, SECRET_KEY, { expiresIn });
+      const token = jwt.sign({ _id: admin._id }, JWT_SECRET, { expiresIn });
 
       const cookie = `Authorization=${token}; HttpOnly; Path=/; Max-Age=${expiresIn}; Secure=${process.env.NODE_ENV === "development"}; SameSite=Strict`;
 

@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { SECRET_KEY } from "./../config";
+import { JWT_SECRET } from "./../config";
 import { HttpException } from "./../exceptions/HttpException";
 import { DataStoredInToken, RequestWithAdmin } from "./../interfaces/auth.interface";
 import adminModel from "./../models/admin.model"; // ใช้เฉพาะ Admin Model
@@ -19,7 +19,7 @@ const authAdminMiddleware = async (
       return next(new HttpException(401, "Unauthorized: No token provided"));
     }
 
-    const verificationResponse = verify(token, SECRET_KEY) as DataStoredInToken;
+    const verificationResponse = verify(token, JWT_SECRET) as DataStoredInToken;
     if (!verificationResponse?._id) {
       return next(new HttpException(401, "Unauthorized: Invalid token"));
     }

@@ -15,6 +15,10 @@ export class CreateCompleteTheWordMasterDto {
 
   @IsString()
   @IsNotEmpty()
+  public vowel_trap: string;
+
+  @IsString()
+  @IsNotEmpty()
   public image_url: string;
 }
 

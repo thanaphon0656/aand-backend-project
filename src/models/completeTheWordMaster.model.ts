@@ -15,6 +15,10 @@ const completeTheWordMasterSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  vowel_trap: {
+    type: String,
+    required: true,
+  },
   image_url: {
     type: String,
     required: true,
