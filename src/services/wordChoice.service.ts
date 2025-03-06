@@ -2,13 +2,14 @@ import MainService from "./../services/main.service";
 import { checkPageLimit, buildDataReturn } from "./../utils/pagination";
 import { PaginationV1WithApiKeyDto } from './../dtos/utilities.dto';
 import { HttpException } from "./../exceptions/HttpException";
+import { shuffle } from 'lodash';
 
-export default class LetterMatchWordsService extends MainService {
+export default class WordChoiceService extends MainService {
   constructor() {
     super();
   }
 
-  public async listLetterMatchWords(pagination: PaginationV1WithApiKeyDto): Promise<any> {
+  public async listWordChoice(pagination: PaginationV1WithApiKeyDto): Promise<any> {
     if (pagination.api_key !== process.env.API_KEY) {
       throw new HttpException(400, 'API key is not found');
     }
@@ -39,13 +40,30 @@ export default class LetterMatchWordsService extends MainService {
         { difficulty: { $regex: new RegExp(pagination.search, 'i') } }
       ];
     }
-    
-    const result = await this.model.letterMatchWordsLevel.find(query)
+
+    const result: any = await this.model.wordChoiceLevel
+      .find(query)
       .sort(sort_data)
       .lean()
-      .populate("letter_match_words_master_id");
+      .populate("word_choice_master_id");
 
-    const total = await this.model.letterMatchWordsLevel.countDocuments(query);
+    if (!result.length) {
+      throw new HttpException(400, "No word choice level found");
+    }
+    const total = await this.model.wordChoiceLevel.countDocuments(query);
+
+    for (const item of result) {
+      if (item.word_choice_master_id) {
+        const correctWord = item.word_choice_master_id.word;
+        const dummyWords = await this.getDummyWords(correctWord, 2);
+
+        item.word_choice_master_id = {
+          ...item.word_choice_master_id,
+          word: correctWord,
+          choice: shuffle([correctWord, ...dummyWords]),
+        };
+      }
+    }
 
     const paginatedData = await checkPageLimit(result, pagination.limit, pagination.page);
 
@@ -53,7 +71,19 @@ export default class LetterMatchWordsService extends MainService {
       results: paginatedData,
       page: pagination.page,
       limit: pagination.limit,
-      total: total
+      total: total,
     });
+  }
+
+
+  private async getDummyWords(correctWord: string, count: number): Promise<string[]> {
+    const filterWords = [correctWord];
+
+    const dummyWords = await this.model.wordChoiceMaster.aggregate([
+      { $match: { word: { $nin: filterWords }, is_active: true } },
+      { $sample: { size: count } }
+    ]);
+
+    return dummyWords.map((w: any) => w.word);
   }
 }

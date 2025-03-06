@@ -18,7 +18,7 @@ export default class CharacterPuzzleController {
   @Post('/list')
   @UseBefore(validationMiddleware(PaginationV1WithApiKeyDto, 'body'))
   @UseBefore(decryptMiddleware)
-  async listItemMaster(@Req() req: any, @Res() res: Response) {
+  async listCharacterPuzzle(@Req() req: any, @Res() res: Response) {
     try {
       const pagination: PaginationV1WithApiKeyDto = req.body;
       const results: Array<any> = await this.characterPuzzleService.listCharacterPuzzle(pagination);

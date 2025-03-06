@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsOptional, IsIn } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsOptional, IsIn, IsArray } from 'class-validator';
 import { CustomIsNull, CustomIsDefined } from '../utils/validator';
 import { message } from '../dtos/main.dto';
 

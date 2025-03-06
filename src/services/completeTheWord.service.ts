@@ -34,7 +34,10 @@ export default class CompleteTheWordService extends MainService {
     const query: any = { is_active: true };
 
     if (pagination.search) {
-      query.level_id = { $regex: new RegExp(pagination.search, 'i') };
+      query.$or = [
+        { level_id: { $regex: new RegExp(pagination.search, 'i') } },
+        { difficulty: { $regex: new RegExp(pagination.search, 'i') } }
+      ];
     }
     
     const result = await this.model.completeTheWordLevel

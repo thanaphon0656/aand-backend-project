@@ -18,7 +18,7 @@ export default class LearnToWriteController {
   @Post('/list')
   @UseBefore(validationMiddleware(PaginationV1WithApiKeyDto, 'body'))
   @UseBefore(decryptMiddleware)
-  async listItemMaster(@Req() req: any, @Res() res: Response) {
+  async listLearnToWrite(@Req() req: any, @Res() res: Response) {
     try {
       const pagination: PaginationV1WithApiKeyDto = req.body;
       const results: Array<any> = await this.learnToWriteService.listLearnToWrite(pagination);
