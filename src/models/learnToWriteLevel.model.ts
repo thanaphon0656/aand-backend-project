@@ -19,6 +19,10 @@ const learnToWriteLevelSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
   learn_to_write_master_id: {
     type: Types.ObjectId,
     ref: "learn_to_write_master",

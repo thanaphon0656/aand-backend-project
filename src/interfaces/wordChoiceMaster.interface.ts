@@ -5,6 +5,7 @@ export interface WordChoiceMaster {
   game_id: string | Types.ObjectId;
   word: string;
   image_url: string;
+  sound: string;
   is_active: boolean;
   created_at: Date;
   updated_at: Date;

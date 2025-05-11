@@ -21,7 +21,7 @@ export class CreateLetterMatchWordsLevelDto {
 
   @IsArray()
   @IsNotEmpty()
-  public character_puzzle_master_id: string[];
+  public letter_match_words_master_id: string[];
 
   @IsString()
   @IsIn(["easy", "medium", "hard"])

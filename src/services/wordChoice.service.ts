@@ -52,18 +52,18 @@ export default class WordChoiceService extends MainService {
     }
     const total = await this.model.wordChoiceLevel.countDocuments(query);
 
-    for (const item of result) {
-      if (item.word_choice_master_id) {
-        const correctWord = item.word_choice_master_id.word;
-        const dummyWords = await this.getDummyWords(correctWord, 2);
+    // for (const item of result) {
+    //   if (item.word_choice_master_id) {
+    //     const correctWord = item.word_choice_master_id.word;
+    //     const dummyWords = await this.getDummyWords(correctWord, 2);
 
-        item.word_choice_master_id = {
-          ...item.word_choice_master_id,
-          word: correctWord,
-          choice: shuffle([correctWord, ...dummyWords]),
-        };
-      }
-    }
+    //     item.word_choice_master_id = {
+    //       ...item.word_choice_master_id,
+    //       word: correctWord,
+    //       choice: shuffle([correctWord, ...dummyWords]),
+    //     };
+    //   }
+    // }
 
     const paginatedData = await checkPageLimit(result, pagination.limit, pagination.page);
 

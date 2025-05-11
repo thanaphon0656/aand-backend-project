@@ -22,6 +22,9 @@ export class CreateLetterMatchWordsMasterDto {
   public image_url: string;
 
   @IsString()
+  public sound: string;
+
+  @IsString()
   @IsNotEmpty()
   public category: string;
 }
@@ -38,6 +41,9 @@ export class UpdateLetterMatchWordsMasterDto {
 
   @IsString()
   public image_url?: string;
+
+  @IsString()
+  public sound: string;
 
   @IsString()
   public category?: string;

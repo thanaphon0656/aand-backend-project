@@ -11,9 +11,15 @@ const wordChoiceMasterSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  choice: {
+    type: [String],
+    required: true
+  },
   image_url: {
-    type: String,
-    required: true,
+    type: String
+  },
+  sound: {
+    type: String
   },
   is_active: {
     type: Boolean,

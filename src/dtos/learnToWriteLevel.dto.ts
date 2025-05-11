@@ -21,6 +21,10 @@ export class CreateLearnToWriteLevelDto {
 
   @IsString()
   @IsNotEmpty()
+  public type: string; //พยัญชนะ สระ วรรณยุกต์
+
+  @IsString()
+  @IsNotEmpty()
   public learn_to_write_master_id: string;
 
   @IsString()

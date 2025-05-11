@@ -7,6 +7,7 @@ export interface LetterMatchWordsMaster {
   phonetics: string[];
   color: string;
   image_url: string;
+  sound: string;
   category: string;
   is_active: boolean;
   created_at: Date;

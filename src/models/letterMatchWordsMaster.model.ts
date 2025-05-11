@@ -23,6 +23,10 @@ const letterMatchWordsMasterSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  sound: {
+    type: String,
+    required: true,
+  },
   category: {
     type: String,
     required: true,

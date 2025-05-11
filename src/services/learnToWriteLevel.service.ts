@@ -16,6 +16,7 @@ export default class LearnToWriteLevelService extends MainService {
         level_id: data.level_id,
         title: data.title,
         description: data.description,
+        type: data.type,
         learn_to_write_master_id: data.learn_to_write_master_id,
         difficulty: data.difficulty,
         time_limit: data.time_limit,

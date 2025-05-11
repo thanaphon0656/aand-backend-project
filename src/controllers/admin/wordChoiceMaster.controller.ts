@@ -12,7 +12,6 @@ export default class WordChoiceMasterController {
   @UseBefore(validationMiddleware(CreateWordChoiceMasterDto, "body"))
   async create(@Req() req: Request, @Res() res: Response) {
     try {
-      console.log("xxxxx")
       const [status, result] = await this.wordChoiceMasterService.createWordChoiceMaster(req.body);
       return res.status(status ? 200 : 400).json({ status, data: result });
     } catch (error) {

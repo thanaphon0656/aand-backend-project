@@ -6,7 +6,7 @@ import {
   Res,
 } from "routing-controllers";
 import { Request, Response } from "express";
-import { AddLeaderboardHistoryDto, ListLeaderboardHistoryDto, ScoreLeaderboardHistoryDto } from "../dtos/leaderboardHistory.dto";
+import { ListLeaderboardHistoryDto, ScoreLeaderboardHistoryDto, AddLeaderboardScoreDto} from "../dtos/leaderboardHistory.dto";
 import LeaderboardHistoryService from "../services/leaderboardHistory.service";
 import validationMiddleware from "../middlewares/validation.middleware";
 import decryptMiddleware from "../middlewares/decrypt.middleware";
@@ -15,23 +15,6 @@ import decryptMiddleware from "../middlewares/decrypt.middleware";
 export default class LeaderboardHistoryController {
   public leaderboardHistoryService = new LeaderboardHistoryService();
 
-  @Post("/add")
-  @UseBefore(validationMiddleware(AddLeaderboardHistoryDto, "body"))
-  @UseBefore(decryptMiddleware)
-  async addLeaderboardHistory(@Req() req: Request, @Res() res: Response) {
-    try {
-      const data: AddLeaderboardHistoryDto = req.body;
-      const result = await this.leaderboardHistoryService.addLeaderboardHistory(data);
-
-      return res.status(200).json({
-        status: true,
-        data: result,
-      });
-    } catch (error) {
-      throw error
-    }
-  }
-
   @Post("/list")
   @UseBefore(validationMiddleware(ListLeaderboardHistoryDto, "body"))
   @UseBefore(decryptMiddleware)
@@ -39,7 +22,7 @@ export default class LeaderboardHistoryController {
     try {
       console.log("list")
       const data: ListLeaderboardHistoryDto = req.body;
-      const [status, result] = await this.leaderboardHistoryService.ListLeaderboardHistory(data);
+      const [status, result] = await this.leaderboardHistoryService.listLeaderboardHistory(data);
 
       return res.status(200).json({
         status: status,
@@ -56,7 +39,7 @@ export default class LeaderboardHistoryController {
   async ScoreLeaderboardHistory(@Req() req: Request, @Res() res: Response) {
     try {
       const data: ScoreLeaderboardHistoryDto = req.body;
-      const result = await this.leaderboardHistoryService.ScoreLeaderboardHistory(data);
+      const result = await this.leaderboardHistoryService.scoreLeaderboardHistory(data);
 
       return res.status(200).json({
         status: true,
@@ -66,4 +49,22 @@ export default class LeaderboardHistoryController {
       throw error
     }
   }
+
+  @Post("/add")
+  @UseBefore(validationMiddleware(AddLeaderboardScoreDto, "body"))
+  @UseBefore(decryptMiddleware)
+  async addLeaderboardScore(@Req() req: Request, @Res() res: Response) {
+    try {
+      const data: AddLeaderboardScoreDto = req.body;
+      const [status, result] = await this.leaderboardHistoryService.addLeaderboardScore(data);
+  
+      return res.status(200).json({
+        status,
+        message: result,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+  
 }

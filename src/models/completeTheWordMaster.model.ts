@@ -11,17 +11,13 @@ const completeTheWordMasterSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  vowel: {
-    type: String,
-    required: true,
-  },
-  vowel_trap: {
-    type: String,
-    required: true,
-  },
+  vowel: [],
+  vowel_trap: [],
   image_url: {
-    type: String,
-    required: true,
+    type: String
+  },
+  sound: {
+    type: String
   },
   is_active: {
     type: Boolean,

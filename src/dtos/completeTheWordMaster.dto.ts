@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsBoolean } from "class-validator";
+import { IsString, IsNotEmpty, IsBoolean, IsArray } from "class-validator";
 
 export class CreateCompleteTheWordMasterDto {
   @IsString()
@@ -9,28 +9,38 @@ export class CreateCompleteTheWordMasterDto {
   @IsNotEmpty()
   public consonant: string;
 
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
-  public vowel: string;
+  public vowel: [];
+
+  @IsArray()
+  @IsNotEmpty()
+  public vowel_trap: [];
 
   @IsString()
-  @IsNotEmpty()
-  public vowel_trap: string;
-
-  @IsString()
-  @IsNotEmpty()
   public image_url: string;
+
+  @IsString()
+  public sound: string;
 }
 
 export class UpdateCompleteTheWordMasterDto {
   @IsString()
   public consonant?: string;
 
-  @IsString()
+  @IsArray()
+  @IsNotEmpty()
   public vowel?: string;
+
+  @IsArray()
+  @IsNotEmpty()
+  public vowel_trap: [];
 
   @IsString()
   public image_url?: string;
+
+  @IsString()
+  public sound: string;
 
   @IsBoolean()
   public is_active?: boolean;
