@@ -1,4 +1,15 @@
-import { IsString, IsNotEmpty, IsBoolean, IsArray } from "class-validator";
+import { IsString, IsNotEmpty, IsBoolean, IsArray, IsOptional, ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
+
+class ChoiceItem {
+  @IsString()
+  @IsNotEmpty()
+  key: string;
+
+  @IsString()
+  @IsOptional()
+  sound_sub?: string = ""; 
+}
 
 export class CreateWordChoiceMasterDto {
   @IsString()
@@ -10,14 +21,13 @@ export class CreateWordChoiceMasterDto {
   public word: string;
 
   @IsArray()
-  @IsNotEmpty()
-  public choice: Array<string>;
+  @ValidateNested({ each: true })
+  @Type(() => ChoiceItem)
+  choice: ChoiceItem[];
 
   @IsString()
   public image_url: string;
 
-  @IsString()
-  public sound: string;
 }
 
 export class UpdateWordChoiceMasterDto {
@@ -25,14 +35,12 @@ export class UpdateWordChoiceMasterDto {
   public word?: string;
 
   @IsArray()
-  @IsNotEmpty()
-  public choice: Array<string>;
+  @ValidateNested({ each: true })
+  @Type(() => ChoiceItem)
+  public choice: ChoiceItem[];
 
   @IsString()
   public image_url?: string;
-
-  @IsString()
-  public sound: string;
 
   @IsBoolean()
   public is_active?: boolean;

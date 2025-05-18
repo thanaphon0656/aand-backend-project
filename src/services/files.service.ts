@@ -155,8 +155,9 @@ export default class FilesService extends MainService {
 
   // File validation helper method
   private isFileValid(file: any) {
-    const type = file.originalname.split(".").pop();
-    const validTypes = ["jpg", "jpeg", "png", "svg", "webp", "pdf"];
-    return validTypes.indexOf(type) !== -1;
+    const type = file.originalname.split(".").pop()?.toLowerCase();
+    const validTypes = ["jpg", "jpeg", "png", "svg", "webp", "pdf", "mp4", "m4a"];
+    return validTypes.includes(type);
   }
+  
 }

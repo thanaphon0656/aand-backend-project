@@ -12,13 +12,15 @@ const wordChoiceMasterSchema: Schema = new Schema({
     required: true,
   },
   choice: {
-    type: [String],
+    type: [
+      {
+        key: { type: String, required: true },
+        sound_sub: { type: String, default: "" }
+      }
+    ],
     required: true
   },
   image_url: {
-    type: String
-  },
-  sound: {
     type: String
   },
   is_active: {
