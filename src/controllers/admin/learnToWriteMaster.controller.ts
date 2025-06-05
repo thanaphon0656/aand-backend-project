@@ -18,12 +18,14 @@ import {
 import LearnToWriteMasterService from "./../../services/learnToWriteMaster.service";
 import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
 import validationMiddleware from "./../../middlewares/validation.middleware";
+import { PaginationV1WithSortSearchDto } from './../../dtos/utilities.dto';
 
 @Controller("/admin/learn-to-write-master")
 export default class LearnToWriteMasterController {
   public learnToWriteMasterService = new LearnToWriteMasterService();
 
   @Post("/create")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(CreateLearnToWriteMasterDto, "body"))
   async createLearnToWriteMaster(
     @Req() req: Request,
@@ -40,6 +42,7 @@ export default class LearnToWriteMasterController {
   }
 
   @Patch("/update/:id")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(ParamUpdateLearnToWriteMasterDto, "params"))
   async updateLearnToWriteMaster(
     @Req() req: Request,
@@ -106,6 +109,19 @@ export default class LearnToWriteMasterController {
       const id: string = req.params.id;
       const [status, message] = await this.learnToWriteMasterService.deleteLearnToWriteMaster(id);
       return res.status(status ? 200 : 400).json({ status: status, message });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Post("/list")
+  @UseBefore(authAdminMiddleware)
+  @UseBefore(validationMiddleware(PaginationV1WithSortSearchDto, 'body'))
+  async listLearnToWriteMaster(@Req() req: any, @Res() res: Response) {
+    try {
+      const pagination: PaginationV1WithSortSearchDto = req.body;
+      const results: Array<any> = await this.learnToWriteMasterService.listLearnToWriteMaster(pagination);
+      return res.status(200).json(results);
     } catch (error) {
       throw error;
     }

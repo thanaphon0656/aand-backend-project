@@ -3,6 +3,9 @@ import {
   CreateLearnToWriteLevel,
   UpdateLearnToWriteLevel
 } from "../interfaces/learnToWriteLevel.interface";
+import { PaginationV1WithSortSearchDto } from './../dtos/utilities.dto';
+import { checkPageLimit, buildDataReturn } from "./../utils/pagination";
+import { HttpException } from "./../exceptions/HttpException";
 
 export default class LearnToWriteLevelService extends MainService {
   constructor() {
@@ -83,6 +86,57 @@ export default class LearnToWriteLevelService extends MainService {
       }
       await this.model.learnToWriteLevel.deleteOne({ _id: id });
       return [true, "Deleted successfully."];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async listLearnToWriteLevel(pagination: PaginationV1WithSortSearchDto): Promise<any> {
+    try {
+      const validSortOptions = ['created_at', 'updated_at'];
+
+      if (pagination.sort_option && !validSortOptions.includes(pagination.sort_option)) {
+        throw new HttpException(400, `Validation error: \"sort_option\" must be a ${validSortOptions.join(' or ')}`);
+      }
+
+      if (pagination.page < 1) {
+        throw new HttpException(400, "Validation error: \"page\" must be a positive number");
+      }
+
+      if (pagination.limit < 1) {
+        throw new HttpException(400, "Validation error: \"limit\" must be a positive number");
+      }
+
+      const sort_data: { [key: string]: 1 | -1 } = {};
+      sort_data[pagination.sort_option ? pagination.sort_option : 'created_at'] =
+        pagination.sort === -1 ? -1 : 1;
+
+      const query: any = { is_active: true };
+
+      if (pagination.search) {
+        query.$or = [
+          { level_id: { $regex: new RegExp(pagination.search, 'i') } },
+          { difficulty: { $regex: new RegExp(pagination.search, 'i') } },
+          { title: { $regex: new RegExp(pagination.search, 'i') } }
+        ];
+      }
+
+      const result = await this.model.characterPuzzleLevel.find(query)
+        .sort(sort_data)
+        .lean()
+        .populate("character_puzzle_master_id");
+
+      const total = await this.model.characterPuzzleLevel.countDocuments(query);
+
+      const paginatedData = await checkPageLimit(result, pagination.limit, pagination.page);
+
+      return buildDataReturn({
+        results: paginatedData,
+        page: pagination.page,
+        limit: pagination.limit,
+        total: total
+      });
+
     } catch (error) {
       throw error;
     }

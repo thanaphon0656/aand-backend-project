@@ -3,12 +3,15 @@ import { Request, Response } from "express";
 import { CreateCharacterPuzzleLevelDto, UpdateCharacterPuzzleLevelDto } from "./../../dtos/characterPuzzleLevel.dto";
 import CharacterPuzzleLevelService from "./../../services/characterPuzzleLevel.service";
 import validationMiddleware from "./../../middlewares/validation.middleware";
+import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
+import { PaginationV1WithSortSearchDto } from './../../dtos/utilities.dto';
 
 @Controller("/admin/character-puzzle-level")
 export default class CharacterPuzzleLevelController {
   public characterPuzzleLevelService = new CharacterPuzzleLevelService();
 
   @Post("/create")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(CreateCharacterPuzzleLevelDto, "body"))
   async create(@Req() req: Request, @Res() res: Response) {
     try {
@@ -20,6 +23,7 @@ export default class CharacterPuzzleLevelController {
   }
 
   @Patch("/update/:id")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(UpdateCharacterPuzzleLevelDto, "body"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
@@ -33,6 +37,7 @@ export default class CharacterPuzzleLevelController {
   }
 
   @Get("/all")
+  @UseBefore(authAdminMiddleware)
   async getAll(@Res() res: Response) {
     try {
       const [status, result] = await this.characterPuzzleLevelService.getAllCharacterPuzzleLevels();
@@ -43,6 +48,7 @@ export default class CharacterPuzzleLevelController {
   }
 
   @Get("/detail/:id")
+  @UseBefore(authAdminMiddleware)
   async getById(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
@@ -54,11 +60,25 @@ export default class CharacterPuzzleLevelController {
   }
 
   @Delete("/delete/:id")
+  @UseBefore(authAdminMiddleware)
   async delete(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
       const [status, message] = await this.characterPuzzleLevelService.deleteCharacterPuzzleLevel(id);
       return res.status(status ? 200 : 400).json({ status, message });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Post("/list")
+  @UseBefore(authAdminMiddleware)
+  @UseBefore(validationMiddleware(PaginationV1WithSortSearchDto, 'body'))
+  async listCharacterPuzzleLevel(@Req() req: any, @Res() res: Response) {
+    try {
+      const pagination: PaginationV1WithSortSearchDto = req.body;
+      const results: Array<any> = await this.characterPuzzleLevelService.listCharacterPuzzleLevel(pagination);
+      return res.status(200).json(results);
     } catch (error) {
       throw error;
     }

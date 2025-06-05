@@ -3,12 +3,15 @@ import { Request, Response } from "express";
 import { CreateCompleteTheWordLevelDto, UpdateCompleteTheWordLevelDto } from "./../../dtos/completeTheWordLevel.dto";
 import CompleteTheWordLevelService from "./../../services/completeTheWordLevel.service";
 import validationMiddleware from "./../../middlewares/validation.middleware";
+import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
+import { PaginationV1WithSortSearchDto } from './../../dtos/utilities.dto';
 
 @Controller("/admin/complete-the-word-level")
 export default class CompleteTheWordLevelController {
   public completeTheWordLevelService = new CompleteTheWordLevelService();
 
   @Post("/create")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(CreateCompleteTheWordLevelDto, "body"))
   async create(@Req() req: Request, @Res() res: Response) {
     try {
@@ -20,6 +23,7 @@ export default class CompleteTheWordLevelController {
   }
 
   @Patch("/update/:id")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(UpdateCompleteTheWordLevelDto, "params"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
@@ -32,6 +36,7 @@ export default class CompleteTheWordLevelController {
   }
 
   @Get("/all")
+  @UseBefore(authAdminMiddleware)
   async getAll(@Res() res: Response) {
     try {
       const [status, result] = await this.completeTheWordLevelService.getAllCompleteTheWordLevels();
@@ -42,6 +47,7 @@ export default class CompleteTheWordLevelController {
   }
 
   @Get("/detail/:id")
+  @UseBefore(authAdminMiddleware)
   async getById(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
@@ -53,6 +59,7 @@ export default class CompleteTheWordLevelController {
   }
 
   @Delete("/delete/:id")
+  @UseBefore(authAdminMiddleware)
   async delete(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
