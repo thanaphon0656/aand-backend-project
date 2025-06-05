@@ -1,7 +1,7 @@
 import MainService from "../services/main.service";
-import { 
-  CreateLetterMatchWordsLevel, 
-  UpdateLetterMatchWordsLevel 
+import {
+  CreateLetterMatchWordsLevel,
+  UpdateLetterMatchWordsLevel
 } from "../interfaces/letterMatchWordsLevel.interface";
 
 export default class LetterMatchWordsLevelService extends MainService {
@@ -42,7 +42,9 @@ export default class LetterMatchWordsLevelService extends MainService {
 
   public async getLetterMatchWordsLevelById(id: string): Promise<[boolean, any]> {
     try {
-      const record = await this.model.letterMatchWordsLevel.findById(id);
+      const record = await this.model.letterMatchWordsLevel
+        .findById(id)
+        .populate('letter_match_words_master_id');
       if (!record) {
         return [false, "Record not found."];
       }

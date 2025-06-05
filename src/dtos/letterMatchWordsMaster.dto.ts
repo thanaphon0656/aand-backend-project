@@ -1,4 +1,15 @@
-import { IsString, IsArray, IsNotEmpty, IsBoolean } from "class-validator";
+import { IsString, IsArray, IsNotEmpty, IsBoolean, IsOptional, ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
+
+class PhoneticsItem {
+  @IsString()
+  @IsNotEmpty()
+  key: string;
+
+  @IsString()
+  @IsOptional()
+  sound_sub?: string = ""; 
+}
 
 export class CreateLetterMatchWordsMasterDto {
   @IsString()
@@ -10,12 +21,9 @@ export class CreateLetterMatchWordsMasterDto {
   public word: string;
 
   @IsArray()
-  @IsNotEmpty()
-  public phonetics: string[];
-
-  @IsString()
-  @IsNotEmpty()
-  public color: string;
+  @ValidateNested({ each: true })
+  @Type(() => PhoneticsItem)
+  phonetics: PhoneticsItem[];
 
   @IsString()
   @IsNotEmpty()
@@ -23,31 +31,28 @@ export class CreateLetterMatchWordsMasterDto {
 
   @IsString()
   public sound: string;
-
-  @IsString()
-  @IsNotEmpty()
-  public category: string;
 }
 
 export class UpdateLetterMatchWordsMasterDto {
+  @IsOptional()
   @IsString()
   public word?: string;
 
+  @IsOptional()
   @IsArray()
-  public phonetics?: string[];
+  @ValidateNested({ each: true })
+  @Type(() => PhoneticsItem)
+  public phonetics?: PhoneticsItem[];
 
-  @IsString()
-  public color?: string;
-
+  @IsOptional()
   @IsString()
   public image_url?: string;
 
+  @IsOptional()
   @IsString()
-  public sound: string;
+  public sound?: string;
 
-  @IsString()
-  public category?: string;
-
+  @IsOptional()
   @IsBoolean()
   public is_active?: boolean;
 }

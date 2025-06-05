@@ -24,10 +24,8 @@ export interface CreateLetterMatchWordsMaster {
 }
 
 export interface UpdateLetterMatchWordsMaster {
-  word?: string;
-  phonetics?: string[];
-  color?: string;
-  image_url?: string;
-  category?: string;
+  word: string;
+  phonetics: [];
+  image_url: string;
   is_active?: boolean;
 }

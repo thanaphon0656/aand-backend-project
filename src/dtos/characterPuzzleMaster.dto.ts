@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsBoolean } from "class-validator";
+import { IsString, IsNotEmpty, IsBoolean, IsOptional } from "class-validator";
 
 export class CreateCharacterPuzzleMasterDto {
   @IsString()
@@ -19,15 +19,19 @@ export class CreateCharacterPuzzleMasterDto {
 }
 
 export class UpdateCharacterPuzzleMasterDto {
+  @IsOptional()
   @IsString()
   public letter?: string;
 
+  @IsOptional()
   @IsString()
   public image_url?: string;
 
+  @IsOptional()
   @IsString()
   public type?: string;
-
+  
+  @IsOptional()
   @IsBoolean()
   public is_active?: boolean;
 }

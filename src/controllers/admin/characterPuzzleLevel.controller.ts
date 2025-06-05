@@ -20,10 +20,11 @@ export default class CharacterPuzzleLevelController {
   }
 
   @Patch("/update/:id")
-  @UseBefore(validationMiddleware(UpdateCharacterPuzzleLevelDto, "params"))
+  @UseBefore(validationMiddleware(UpdateCharacterPuzzleLevelDto, "body"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
+      console.log(id)
       const [status, result] = await this.characterPuzzleLevelService.updateCharacterPuzzleLevel(id, req.body);
       return res.status(status ? 200 : 400).json({ status, data: result });
     } catch (error) {

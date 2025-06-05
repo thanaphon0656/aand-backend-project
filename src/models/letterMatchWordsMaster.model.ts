@@ -9,31 +9,24 @@ const letterMatchWordsMasterSchema: Schema = new Schema({
   },
   word: {
     type: String,
-    required: true,
   },
   phonetics: {
-    type: [String],
-    required: true,
-  },
-  color: {
-    type: String,
-    required: true,
+    type: [
+      {
+        key: { type: String },
+        sound_sub: { type: String, default: "" }
+      }
+    ],
+    required: true
   },
   image_url: {
     type: String,
-    required: true,
   },
   sound: {
     type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
   },
   is_active: {
     type: Boolean,
-    required: true,
     default: true,
   },
   created_at: {
