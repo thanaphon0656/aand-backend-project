@@ -69,4 +69,17 @@ export default class CompleteTheWordLevelController {
       throw error;
     }
   }
+
+  @Post("/list")
+  @UseBefore(authAdminMiddleware)
+  @UseBefore(validationMiddleware(PaginationV1WithSortSearchDto, 'body'))
+  async listCompleteTheWordLevel(@Req() req: any, @Res() res: Response) {
+    try {
+      const pagination: PaginationV1WithSortSearchDto = req.body;
+      const results: Array<any> = await this.completeTheWordLevelService.listCompleteTheWordLevel(pagination);
+      return res.status(200).json(results);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

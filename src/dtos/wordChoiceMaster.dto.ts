@@ -31,17 +31,21 @@ export class CreateWordChoiceMasterDto {
 }
 
 export class UpdateWordChoiceMasterDto {
+  @IsOptional()
   @IsString()
   public word?: string;
 
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ChoiceItem)
   public choice: ChoiceItem[];
 
+  @IsOptional()
   @IsString()
   public image_url?: string;
 
+  @IsOptional()
   @IsBoolean()
   public is_active?: boolean;
 }

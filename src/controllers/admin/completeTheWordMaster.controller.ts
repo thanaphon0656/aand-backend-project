@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { CreateCompleteTheWordMasterDto, UpdateCompleteTheWordMasterDto } from "./../../dtos/completeTheWordMaster.dto";
 import CompleteTheWordMasterService from "./../../services/completeTheWordMaster.service";
 import validationMiddleware from "./../../middlewares/validation.middleware";
+import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
+import { PaginationV1WithSortSearchDto } from './../../dtos/utilities.dto';
 
 @Controller("/admin/complete-the-word-master")
 export default class CompleteTheWordMasterController {
@@ -58,6 +60,19 @@ export default class CompleteTheWordMasterController {
       const id = req.params.id;
       const [status, message] = await this.completeTheWordMasterService.deleteCompleteTheWordMaster(id);
       return res.status(status ? 200 : 400).json({ status, message });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Post("/list")
+  @UseBefore(authAdminMiddleware)
+  @UseBefore(validationMiddleware(PaginationV1WithSortSearchDto, 'body'))
+  async listCompleteTheWordMaster(@Req() req: any, @Res() res: Response) {
+    try {
+      const pagination: PaginationV1WithSortSearchDto = req.body;
+      const results: Array<any> = await this.completeTheWordMasterService.listCompleteTheWordMaster(pagination);
+      return res.status(200).json(results);
     } catch (error) {
       throw error;
     }

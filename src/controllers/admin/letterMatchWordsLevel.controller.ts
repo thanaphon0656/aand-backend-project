@@ -3,12 +3,15 @@ import { Request, Response } from "express";
 import { CreateLetterMatchWordsLevelDto, UpdateLetterMatchWordsLevelDto } from "./../../dtos/letterMatchWordsLevel.dto";
 import LetterMatchWordsLevelService from "./../../services/letterMatchWordsLevel.service";
 import validationMiddleware from "./../../middlewares/validation.middleware";
+import authAdminMiddleware from "./../../middlewares/authAdmin.middleware";
+import { PaginationV1WithSortSearchDto } from './../../dtos/utilities.dto';
 
 @Controller("/admin/letter-match-words-level")
 export default class LetterMatchWordsLevelController {
   public letterMatchWordsLevelService = new LetterMatchWordsLevelService();
 
   @Post("/create")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(CreateLetterMatchWordsLevelDto, "body"))
   async create(@Req() req: Request, @Res() res: Response) {
     try {
@@ -20,6 +23,7 @@ export default class LetterMatchWordsLevelController {
   }
 
   @Patch("/update/:id")
+  @UseBefore(authAdminMiddleware)
   @UseBefore(validationMiddleware(UpdateLetterMatchWordsLevelDto, "params"))
   async update(@Req() req: Request, @Res() res: Response) {
     try {
@@ -37,6 +41,7 @@ export default class LetterMatchWordsLevelController {
   }
 
   @Get("/all")
+  @UseBefore(authAdminMiddleware)
   async getAll(@Res() res: Response) {
     try {
       const [status, result] = await this.letterMatchWordsLevelService.getAllLetterMatchWordsLevels();
@@ -47,6 +52,7 @@ export default class LetterMatchWordsLevelController {
   }
 
   @Get("/detail/:id")
+  @UseBefore(authAdminMiddleware)
   async getById(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
@@ -58,11 +64,25 @@ export default class LetterMatchWordsLevelController {
   }
 
   @Delete("/delete/:id")
+  @UseBefore(authAdminMiddleware)
   async delete(@Req() req: Request, @Res() res: Response) {
     try {
       const id = req.params.id;
       const [status, message] = await this.letterMatchWordsLevelService.deleteLetterMatchWordsLevel(id);
       return res.status(status ? 200 : 400).json({ status, message });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Post("/list")
+  @UseBefore(authAdminMiddleware)
+  @UseBefore(validationMiddleware(PaginationV1WithSortSearchDto, 'body'))
+  async listLetterMatchWordsLevel(@Req() req: any, @Res() res: Response) {
+    try {
+      const pagination: PaginationV1WithSortSearchDto = req.body;
+      const results: Array<any> = await this.letterMatchWordsLevelService.listLetterMatchWordsLevel(pagination);
+      return res.status(200).json(results);
     } catch (error) {
       throw error;
     }
