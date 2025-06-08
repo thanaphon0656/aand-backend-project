@@ -2,7 +2,7 @@
 
 Clone the repository
 
-- Copy .env.development.local and press to .env.development.local
+- Copy .env
 
 Install npm packages
 
