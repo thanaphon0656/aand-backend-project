@@ -1,6 +1,6 @@
 import multer from "multer";
 
-const storage = multer.memoryStorage(); // เก็บไฟล์ใน memory ก่อนส่งไป S3
+const storage = multer.memoryStorage();
 
 const fileFilter = (req: any, file: any, cb: any) => {
   const allowedMimeTypes = [
@@ -9,14 +9,14 @@ const fileFilter = (req: any, file: any, cb: any) => {
     "image/jpg",
     "application/pdf",
     "video/mp4",
-    "audio/mp4",
-    "audio/x-m4a"
+    "audio/mpeg", 
+    "audio/mp3" 
   ];
 
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Invalid file type. Only images, PDFs, mp4, and m4a are allowed."), false);
+    cb(new Error("Invalid file type. Only images, PDFs, mp4, and mp3 are allowed."), false);
   }
 };
 

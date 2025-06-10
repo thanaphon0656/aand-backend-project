@@ -51,6 +51,8 @@ export default class FilesService extends MainService {
         mediaType = TYPE_MEDIA[0];  // 'image'
       } else if (fileExtension === "pdf" || fileExtension === "PDF") {
         mediaType = TYPE_MEDIA[1];  // 'pdf'
+      } else if (fileExtension === "mp3") {
+        mediaType = TYPE_MEDIA[2];  // 'mp3'
       } else {
         mediaType = TYPE_MEDIA[2];  // 'other'
       }
@@ -84,7 +86,7 @@ export default class FilesService extends MainService {
       );
 
       return location
-      
+
     } catch (err) {
       throw err;
     }
@@ -156,8 +158,8 @@ export default class FilesService extends MainService {
   // File validation helper method
   private isFileValid(file: any) {
     const type = file.originalname.split(".").pop()?.toLowerCase();
-    const validTypes = ["jpg", "jpeg", "png", "svg", "webp", "pdf", "mp4", "m4a"];
+    const validTypes = ["jpg", "jpeg", "png", "svg", "webp", "pdf", "mp3"];
     return validTypes.includes(type);
   }
-  
+
 }
